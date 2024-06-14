@@ -91,7 +91,7 @@ public class Main {
                 writer.write(str + System.lineSeparator());
             }
         }
-   
+
 
 
         //Задан файл с java-кодом.
@@ -101,7 +101,7 @@ public class Main {
         for (String str : javaToReverse) {
             javaReversed.add(new StringBuilder(str).reverse().toString());
         }
-        try (FileWriter writer = new FileWriter(BASE_DIR + "/ReversedCode.java", true)) {
+        try (FileWriter writer = new FileWriter(BASE_DIR + "/ReversedCode.java")) {
             for (String str : javaReversed) {
                 writer.write(str + System.lineSeparator());
             }
