@@ -79,35 +79,32 @@ public class Main {
         //атрибутов и методов класса заменить на слово private. Результат сохранить в другой заранее созданный файл.
         List<String> javaToReplace = Files.readAllLines(javaPath);
         List<String> javaReplaced = new ArrayList<>();
-
+        Path targetPath1 = Paths.get(BASE_DIR + "/ReplacedCode.java");
         for (String str : javaToReplace) {
             if (str.contains("class") || !str.contains("public"))
                 javaReplaced.add(str);
             else javaReplaced.add(str.replace("public", "private"));
         }
-        try (FileWriter writer = new FileWriter(BASE_DIR+"ReplacedCode.java")) {
+
+        try (FileWriter writer = new FileWriter(BASE_DIR + "/ReplacedCode.java")) {
             for (String str : javaReplaced) {
                 writer.write(str + System.lineSeparator());
             }
         }
+   
+
 
         //Задан файл с java-кодом.
         //Прочитать текст программы из файла и записать в другой файл в обратном порядке символы каждой строки.
         List<String> javaToReverse = Files.readAllLines(javaPath);
         List<String> javaReversed = new ArrayList<String>();
-        Path targetPath = Paths.get(BASE_DIR + "/ReversedCode.java");
         for (String str : javaToReverse) {
             javaReversed.add(new StringBuilder(str).reverse().toString());
         }
-        if (Files.exists(targetPath)){
-            try (FileWriter writer = new FileWriter(BASE_DIR + "/ReversedCode.java")) {
-                for (String str : javaReversed) {
-                    writer.write(str + System.lineSeparator());
-                }
+        try (FileWriter writer = new FileWriter(BASE_DIR + "/ReversedCode.java", true)) {
+            for (String str : javaReversed) {
+                writer.write(str + System.lineSeparator());
             }
-        } else {
-            System.out.println("Файл не существует!");
         }
-
     }
 }
