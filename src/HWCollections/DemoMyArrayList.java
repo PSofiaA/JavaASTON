@@ -8,7 +8,7 @@ public class DemoMyArrayList {
 
 
         // Метод вставки в конец списка
-       // test2.add(2);
+        test2.add(2);
         test2.add(3);
         test2.add(4);
         test2.add(5);

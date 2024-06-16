@@ -14,13 +14,12 @@ public class MyArrayList <T extends Comparable<T>> {
     }
 
     //Создание списка, который имеет заданную емкость capacity
-    public MyArrayList(int initCapacity){
-        if (initCapacity > 0){
-            this.elements =(T[]) new Comparable[initCapacity];
+    public MyArrayList(int initCapacity) throws IllegalArgumentException{
+        if (initCapacity <= 0){
+            throw new IllegalArgumentException("Incorrect Capacity");
         }
-        else if (initCapacity < 0){
-            throw new IllegalArgumentException("Incorrent Capacity");
-        }
+        this.elements = (T[]) new Comparable[initCapacity];
+        this.arrayLength = 0;
     }
 
     //Создание списка, в которую добавляются все элементы переданной коллекции
@@ -48,9 +47,9 @@ public class MyArrayList <T extends Comparable<T>> {
     }
 
     //Проверка допустимости индекса
-    private void indexCheck(int toCheck, int upperLimit){
+    private void indexCheck(int toCheck, int upperLimit) throws IndexOutOfBoundsException{
         if(toCheck > upperLimit || toCheck < 0){
-            throw new IllegalArgumentException("Incorrent index");
+            throw new IndexOutOfBoundsException("Incorrect index");
         }
     }
 
@@ -85,9 +84,6 @@ public class MyArrayList <T extends Comparable<T>> {
             growArray();
         }
         System.arraycopy(this.elements, index, this.elements, index + 1, this.arrayLength-index);
-//        for(int i=this.arrayLength; i > index; i--){
-//            this.elements[i] = this.elements[i-1];
-//        }
         this.elements[index] = newElement;
         this.arrayLength++;
     }
@@ -114,18 +110,17 @@ public class MyArrayList <T extends Comparable<T>> {
         if(collection.size()==0)
             return false;
         for (int i = 0; i < collection.size(); i++) {
-            add(collection.get(i));
+            this.add(collection.get(i));
         }
         return true;
     }
 
     // Сортировка пузырьком
-    // не совсем корректно работает (не смогла найти, в чем заключается ошибка...)
     public void bubbleSort(){
         boolean flag;
         for(int i=0; i < this.arrayLength - 1; i++){
             flag = false;
-            for(int j=0; j < this.arrayLength - 1; j++){
+            for(int j=0; j < this.arrayLength - 1 - i; j++){
                 if((this.elements[j]).compareTo(this.elements[j+1]) > 0){
                     T tmp = this.elements[j];
                     this.elements[j] = this.elements[j+1];
